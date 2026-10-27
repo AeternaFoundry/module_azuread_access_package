@@ -7,6 +7,11 @@ Required:
     - display_name
 Optional:
     - hidden
+    - timeouts (block):
+        - create (optional)
+        - delete (optional)
+        - read (optional)
+        - update (optional)
 EOT
 
   type = map(object({
@@ -14,6 +19,12 @@ EOT
     description  = string
     display_name = string
     hidden       = optional(bool)
+    timeouts = optional(object({
+      create = optional(string)
+      delete = optional(string)
+      read   = optional(string)
+      update = optional(string)
+    }))
   }))
   validation {
     condition = alltrue([

@@ -5,5 +5,15 @@ resource "azuread_access_package" "access_packages" {
   description  = each.value.description
   display_name = each.value.display_name
   hidden       = each.value.hidden
+
+  dynamic "timeouts" {
+    for_each = each.value.timeouts != null ? [each.value.timeouts] : []
+    content {
+      create = timeouts.value.create
+      delete = timeouts.value.delete
+      read   = timeouts.value.read
+      update = timeouts.value.update
+    }
+  }
 }
 
